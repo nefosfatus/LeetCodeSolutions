@@ -147,9 +147,51 @@ namespace LeetCodeSolutions.LinkedList
 
 
             ListNode firstPointer = head;
-            ListNode secondPointer = head;
-            
-           
+            ListNode secondPointer = head.next;
+
+            while (firstPointer != secondPointer)
+            {
+                if (secondPointer == null || secondPointer.next == null)
+                {
+                    return false;
+                }
+                firstPointer = firstPointer.next;
+                secondPointer = secondPointer.next.next;
+            }
+
+            return true;
+        }
+        public static ListNode DetectCycle(ListNode head)
+        {
+            if (head == null)
+            {
+                return null;
+            }
+
+            ListNode slow = head;
+            ListNode fast = head;
+
+			while (fast != null && fast.next != null)
+			{
+				slow = slow.next;
+				fast = fast.next.next;
+
+                if (fast == slow)
+				{
+                    break;
+				}
+			}
+			if (fast == null || fast.next == null) return null;
+
+            slow = head;
+
+            while (slow != fast)
+            {
+                slow = slow.next;
+                fast = fast.next;
+            }
+
+            return fast;
         }
     }
 }
